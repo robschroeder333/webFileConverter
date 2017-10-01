@@ -1,16 +1,3 @@
-const form = document.createElement('form');
-const upload = document.createElement('input');
-const fileContents = document.createElement('div');
-
-upload.type = 'file';
-upload.id = 'upload';
-fileContents.id = 'contents';
-
-form.appendChild(upload);
-document.body.appendChild(form);
-document.body.appendChild(document.createElement('br'));
-document.body.appendChild(fileContents);
-
 const reFormatData = dataString => {
   const dataArray = [];
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon server.js",
+    "test": "open http://localhost:6060 && nodemon server.js",
     "start": "node server.js"
   },
   "keywords": [],

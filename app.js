@@ -1,10 +1,10 @@
-let textFile = null;
+let fileURL = null;
 let uploadedFile = null;
 
 const dataStringToArray = dataString => {
   const dataArray = [];
-
   const rows = dataString.split('\n');
+
   for (let i = 0; i < rows.length; i++) {
     const columns = rows[i].split('\t');
     let rowData = [];
@@ -18,12 +18,9 @@ const dataStringToArray = dataString => {
   return dataArray;
 };
 
-
 const formatData = array => {
-
   // check last element and whether it is valid
   const dataArray = array.slice(2, array.length - 1);
-
 
   const data = dataArray.map(ele => {
     const amount = parseInt(ele[5], 10).toFixed(2);
@@ -38,38 +35,41 @@ const formatData = array => {
   return dataString;
 };
 
-const makeTextFile =  (text) => {
+const makefileURL = text => {
   var data = new Blob([text], {type: 'text/plain'});
 
-  // If we are replacing a previously generated file we need to
-  // manually revoke the object URL to avoid memory leaks.
-  if (textFile !== null) {
-    window.URL.revokeObjectURL(textFile);
-  }
+  fileURL = window.URL.createObjectURL(data);
 
-  textFile = window.URL.createObjectURL(data);
-
-  // returns a URL you can use as a href
-  return textFile;
+  return fileURL;
 };
 
 const onDownload = () => {
-  textFile = null;
-  console.log('record of file erased');
+  setTimeout(() => {
+    const dl = document.getElementById('download');
+    dl.innerText = '';
+
+    const ul = document.getElementById('upload');
+    ul.value = '';
+
+    window.URL.revokeObjectURL(fileURL);
+    fileURL = null;
+    console.log('record of file erased');
+  }, 1000);
+
 };
 
 const dataToFile = (dataString, name) => {
-  const dataURL = makeTextFile(dataString);
+  const dataURL = makefileURL(dataString);
   const fileName = `${name}.txt`;
 
-  const link = document.createElement('a');
-  link.href = dataURL;
-  link.download = fileName;
-  link.innerText = `Click to Download converted file`;
-  link.addEventListener('click', onDownload);
-
   const dl = document.getElementById('download');
-  dl.appendChild(link);
+  // const link = document.createElement('a');
+  dl.href = dataURL;
+  dl.download = fileName;
+  dl.innerText = `Click to Download converted file`;
+  dl.addEventListener('click', onDownload);
+
+  // dl.appendChild(link);
 };
 
 const validator = array => {

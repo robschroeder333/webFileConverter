@@ -8,7 +8,7 @@ const dataStringToArray = dataString => {
   for (let i = 0; i < rows.length; i++) {
     const columns = rows[i].split('\t');
     let rowData = [];
-    // Core logic
+
     for (let ii = 0; ii < columns.length; ii++) {
       rowData.push(columns[ii]);
     }
@@ -19,7 +19,6 @@ const dataStringToArray = dataString => {
 };
 
 const formatData = array => {
-  // check last element and whether it is valid
   const dataArray = array.slice(2, array.length - 1);
 
   const data = dataArray.map(ele => {
@@ -60,16 +59,13 @@ const onDownload = () => {
 
 const dataToFile = (dataString, name) => {
   const dataURL = makefileURL(dataString);
-  const fileName = `${name}.txt`;
+  const fileName = `${name}.tsv`;
 
   const dl = document.getElementById('download');
-  // const link = document.createElement('a');
   dl.href = dataURL;
   dl.download = fileName;
   dl.innerText = `Click to Download converted file`;
   dl.addEventListener('click', onDownload);
-
-  // dl.appendChild(link);
 };
 
 const validator = array => {

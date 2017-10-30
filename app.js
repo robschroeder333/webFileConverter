@@ -77,7 +77,9 @@ const validator = array => {
 
   } else {
     //failed validation message
-    alert("## Oops! \n We can't find the MacPractice payment records in this file. \n Please double-check to make sure you're uploading the right file, and try again. \n If that doesn't work, please reach out for help: \n Call **347-674-8874** or email **joe@joewestcott.com**. \n Thank you, \n Joe");
+    alert("Oops!\n\nWe can't find the MacPractice payment records in this file.\n\nPlease double-check to make sure you're uploading the right file, and try again.\n\nIf that doesn't work, please reach out for help:\n\nCall 347-674-8874 or email joe@joewestcott.com.\n\nThank you,\nJoe");
+    const ul = document.getElementById('upload');
+    ul.value = '';
   }
 };
 function getUploadedFile(evt) {
